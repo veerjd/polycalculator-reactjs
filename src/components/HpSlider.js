@@ -15,11 +15,14 @@ function valuetext(value) {
   return `${value}hp`;
 }
 
-export default function HpSlider(props) {
 export default function HpSlider({setActive, activeUnit}) {
   const classes = useStyles();
 
-  console.log('HpSlider', props)
+  const sliderChange = (event, value) => {
+    const updateActiveUnit = {...activeUnit, currenthp: value};
+    setActive(updateActiveUnit);
+
+  };
 
   return (
     <div className={classes.root}>
@@ -28,10 +31,11 @@ export default function HpSlider({setActive, activeUnit}) {
         track={false}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-always"
-        value={props.activeUnit.currenthp}
-        max={props.activeUnit.maxhp}
+        value={activeUnit.currenthp}
+        max={activeUnit.maxhp}
         marks={true}
         valueLabelDisplay="on"
+        onChange={sliderChange}
       />
     </div>
   );
