@@ -1,27 +1,42 @@
-import CLI2 from './pages/CLI2'
-// import polycalc from './pages/polycalc'
+import PolyCalc from './pages/PolyCalc'
+import Loading from './pages/Loading'
+import { useState, useEffect } from "react"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import axios from "axios";
 import './App.css';
 
-function App() {
+export default function App() {
   const darkTheme = createMuiTheme({
     palette: {
       type: 'dark',
     },
   });
 
+  const [units, setUnits] = useState([])
+
+  const getUnits = async () => {
+    try {
+      const response = await axios.get("https://polycalculatorbot.com/api/units");
+      return response.data;
+    } catch (err) { console.error(err) }
+    return []
+  };
+
+  useEffect(async () => {
+    setUnits(await getUnits());
+  }, [])
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
         <header className="App-header">
-          <CLI2
-            placeholder='wbo, wsh, wbs, de b'
-          />
-          {/* <polycalc /> */}
+          {units.length ?
+            <PolyCalc
+              units={units}
+            /> :
+            <Loading />}
         </header>
       </div>
     </ThemeProvider>
   );
 }
-
-export default App;

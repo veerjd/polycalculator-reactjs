@@ -1,45 +1,87 @@
-/* eslint-disable no-unused-vars no-def no-lone-blocks */
-// import logo from './logo.png'
-import UnitSelect from '../UnitSelect'
-import { useState } from 'react'
-import { TextField, Box, Button } from '@material-ui/core'
+// import logo from "./logo.png"
+import Unit from "../components/Unit"
+import { useState, useEffect } from "react"
+import { TextField, Box, Button } from "@material-ui/core"
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    width: '80%',
+    margin: '10px 0%'
+  },
+  // select: {
+  //   width: '30%'
+  // },
+  button: {
+    margin: '10px'
+  }
+});
 
 export default function froth(props) {
+  const classes = useStyles()
 
-  const [mode, setMode] = useState('single')
+  // const [mode, setMode] = useState("single")
+  const units = props.units
 
-  // const [selectedAttacker, setSelectedAttacker] = useState(props.units)
-
-  const [selectedAttacker, setSelectedAttacker] = useState('wa')
-
+  const [activeAttacker, setActiveAttacker] = useState({})
+  const [activeDefender, setActiveDefender] = useState({})
   const [attackers, setAttackers] = useState([])
 
-  const handleAddUnit = (event) => {
-    if (event.target.name === 'Attacker') {
-      setAttackers(attackers.push(selectedAttacker));
-    }
-  };
+  useEffect(() => {
+    const baseUnit = units.filter(x => x.code === 'wa')[0]
+    setActiveAttacker({
+      ...baseUnit,
+      currenthp: baseUnit.maxhp,
+      vetNow: false,
+      forceRetaliation: undefined,
+      explodingNow: false
+    })
+    setActiveDefender({
+      ...baseUnit,
+      currenthp: baseUnit.maxhp,
+      vetNow: false,
+      forceRetaliation: undefined,
+      explodingNow: false
+    })
+  }, []);
 
-  const handleSelectedUnit = (event) => {
+  const handleFight = (event) => {
     const selectedUnit = units[event.target.value]
-    setSelectedAttacker(selectedUnit)
+    setActiveAttacker(selectedUnit)
   };
 
   return (
     <div>
-      <UnitSelect />
-      {/* <Select onChange={changeSelectedUnit}
-        name='attackerOption'>
-        Rider
-        </Select> */}
-      <Button
-        onClick={handleKey}
-        name='attacker'
+      <Unit
+        id="attacker"
+        placeholder='Attacker'
+        units={units}
+        activeUnit={activeAttacker}
+        onChange={setActiveAttacker}
+      />
+      <Unit
+        id="defender"
+        placeholder='Defender'
+        units={units}
+        activeUnit={activeDefender}
+        onChange={setActiveDefender}
       />
       <Button
-        onClick={handleKey}
-        name='Attacker'
-      />
+        className={classes.button}
+        id='calc'
+        onClick={handleFight}
+        name="Calc"
+        variant="contained"
+        color="primary"
+      >Calc!</Button>
+      <Button
+        className={classes.button}
+        id='multi'
+        onClick={() => { alert('Not implemented yet!') }}
+        name="Multi"
+        variant="contained"
+        color="secondary"
+      >Multi</Button>
     </div>
   )
 }

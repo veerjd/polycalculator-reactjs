@@ -7,45 +7,29 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
   },
   margin: {
-    height: theme.spacing(3),
+    paddingTop: theme.spacing(7),
   },
 }));
-
-const marks = [
-  {
-    value: 10,
-    label: '10hp',
-  },
-  {
-    value: 15,
-    label: '15hp',
-  },
-  {
-    value: 20,
-    label: '20hp',
-  },
-  {
-    value: 40,
-    label: '40hp',
-  },
-];
 
 function valuetext(value) {
   return `${value}hp`;
 }
 
-export default function TrackFalseSlider() {
+export default function HpSlider(props) {
   const classes = useStyles();
+
+  console.log('HpSlider', props)
 
   return (
     <div className={classes.root}>
       <Slider
+        className={classes.margin}
         track={false}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-always"
-        defaultValue={[10, 10]}
-        max={40}
-        marks={marks}
+        value={props.activeUnit.currenthp}
+        max={props.activeUnit.maxhp}
+        marks={true}
         valueLabelDisplay="on"
       />
     </div>
