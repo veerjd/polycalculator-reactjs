@@ -16,6 +16,7 @@ function valuetext(value) {
 }
 
 export default function HpSlider(props) {
+export default function HpSlider({setActive, activeUnit}) {
   const classes = useStyles();
 
   console.log('HpSlider', props)
