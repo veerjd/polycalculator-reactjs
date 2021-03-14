@@ -23,8 +23,8 @@ export default function froth(props) {
   // const [mode, setMode] = useState("single")
   const units = props.units
 
-  const [activeAttacker, setActiveAttacker] = useState({})
-  const [activeDefender, setActiveDefender] = useState({})
+  const [activeAttacker, setActiveAttacker] = useState()
+  const [activeDefender, setActiveDefender] = useState()
   const [attackers, setAttackers] = useState([])
 
   useEffect(() => {
@@ -52,20 +52,24 @@ export default function froth(props) {
 
   return (
     <div>
-      <Unit
-        id="attacker"
-        placeholder='Attacker'
-        units={units}
-        activeUnit={activeAttacker}
-        onChange={setActiveAttacker}
-      />
-      <Unit
-        id="defender"
-        placeholder='Defender'
-        units={units}
-        activeUnit={activeDefender}
-        onChange={setActiveDefender}
-      />
+      {activeAttacker && (
+        <Unit
+          id="attacker"
+          placeholder="Attacker"
+          units={units}
+          activeUnit={activeAttacker}
+          setActive={setActiveAttacker}
+        />
+      )}
+      {activeDefender && (
+        <Unit
+          id="defender"
+          placeholder="Defender"
+          units={units}
+          activeUnit={activeDefender}
+          setActive={setActiveDefender}
+        />
+      )}
       <Button
         className={classes.button}
         id='calc'

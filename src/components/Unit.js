@@ -21,11 +21,11 @@ export default function froth(props) {
         placeholder={props.placeholder}
         units={props.units}
         activeUnit={props.activeUnit}
-        onChange={props.onChange}
+        setActive={props.setActive}
       />
       <HpSlider
         activeUnit={props.activeUnit}
-        onChange={props.onChange}
+        setActive={props.setActive}
       />
     </div>
   )
