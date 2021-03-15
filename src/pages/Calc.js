@@ -2,7 +2,9 @@
 import Unit from "../components/Unit"
 import { useState, useEffect } from "react"
 import { TextField, Box, Button } from "@material-ui/core"
+// import UnitsProvider from "../Providers/UnitProvider";
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function froth(props) {
+export default function Calc(props) {
   const classes = useStyles()
 
   // const [mode, setMode] = useState("single")
@@ -26,32 +28,25 @@ export default function froth(props) {
   const [activeAttacker, setActiveAttacker] = useState()
   const [activeDefender, setActiveDefender] = useState()
   const [attackers, setAttackers] = useState([])
+  const [result, setResult] = useState({
+    attacker: {},
+    defender: {}
+  })
 
   useEffect(() => {
     const baseUnit = units.filter(x => x.code === 'wa')[0]
-    setActiveAttacker({
-      ...baseUnit,
-      currenthp: baseUnit.maxhp,
-      vetNow: false,
-      forceRetaliation: undefined,
-      explodingNow: false
-    })
-    setActiveDefender({
-      ...baseUnit,
-      currenthp: baseUnit.maxhp,
-      vetNow: false,
-      forceRetaliation: undefined,
-      explodingNow: false
-    })
+    setActiveAttacker(baseUnit)
+    setActiveDefender(baseUnit)
   }, []);
 
   const handleFight = (event) => {
-    const selectedUnit = units[event.target.value]
-    setActiveAttacker(selectedUnit)
+    console.log('activeAttacker:', activeAttacker)
+    console.log('activeDefender:', activeDefender)
   };
 
   return (
     <div>
+      {/* <UnitsProvider> */}
       {activeAttacker && (
         <Unit
           id="attacker"
@@ -86,6 +81,7 @@ export default function froth(props) {
         variant="contained"
         color="secondary"
       >Multi</Button>
+      {/* </UnitsProvider> */}
     </div>
   )
 }

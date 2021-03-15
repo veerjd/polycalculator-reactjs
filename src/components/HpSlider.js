@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
@@ -15,23 +15,29 @@ function valuetext(value) {
   return `${value}hp`;
 }
 
-export default function HpSlider({setActive, activeUnit}) {
+export default function HpSlider({ activeUnit, setActive }) {
   const classes = useStyles();
 
-  const sliderChange = (event, value) => {
-    const updateActiveUnit = {...activeUnit, currenthp: value};
-    setActive(updateActiveUnit);
+  const [hp, setHp] = useState(activeUnit.currenthp)
 
+  const sliderChange = async (event, value) => {
+    if (value)
+      setHp(value)
+    const updateActiveUnit = { ...activeUnit, currenthp: value };
+    if (updateActiveUnit)
+      await setActive(updateActiveUnit);
   };
+
+  const valuetext = (value, index) => {
+    value = `${value}hp`
+  }
 
   return (
     <div className={classes.root}>
       <Slider
         className={classes.margin}
-        track={false}
-        getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-always"
-        value={activeUnit.currenthp}
+        value={hp}
         max={activeUnit.maxhp}
         marks={true}
         valueLabelDisplay="on"

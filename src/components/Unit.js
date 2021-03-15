@@ -1,5 +1,5 @@
 // import logo from "./logo.png"
-import UnitSelect from "../components/UnitSelect"
+import UnitDropdown from "./UnitDropdown"
 import HpSlider from "../components/HpSlider"
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -10,13 +10,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function froth(props) {
+export default function Unit(props) {
   const classes = useStyles()
 
-  console.log('Unit', props)
   return (
     <div>
-      <UnitSelect
+      <UnitDropdown
         className={classes.root}
         placeholder={props.placeholder}
         units={props.units}

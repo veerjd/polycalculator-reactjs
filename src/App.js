@@ -1,4 +1,4 @@
-import PolyCalc from './pages/PolyCalc'
+import Calc from './pages/Calc'
 import Loading from './pages/Loading'
 import { useState, useEffect } from "react"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -16,8 +16,22 @@ export default function App() {
 
   const getUnits = async () => {
     try {
-      const response = await axios.get("https://polycalculatorbot.com/api/units");
-      return response.data;
+      let { data } = await axios.get("https://polycalculatorbot.com/api/units");
+
+      data = data.map(unit => {
+        return {
+          ...unit,
+          currenthp: unit.maxhp,
+          vetNow: false,
+          forceRetaliation: undefined,
+          explodingNow: false,
+          bonus: 1
+        }
+      });
+
+      console.log(data)
+
+      return data;
     } catch (err) { console.error(err) }
     return []
   };
@@ -31,7 +45,7 @@ export default function App() {
       <div className="App">
         <header className="App-header">
           {units.length ?
-            <PolyCalc
+            <Calc
               units={units}
             /> :
             <Loading />}
