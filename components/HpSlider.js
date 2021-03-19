@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Slider from '@material-ui/core/Slider';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Slider from "@material-ui/core/Slider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,19 +18,17 @@ function valuetext(value) {
 export default function HpSlider({ activeUnit, setActive }) {
   const classes = useStyles();
 
-  const [hp, setHp] = useState(activeUnit.currenthp)
+  const [hp, setHp] = useState(activeUnit.currenthp);
 
   const sliderChange = async (event, value) => {
-    if (value)
-      setHp(value)
+    if (value) setHp(value);
     const updateActiveUnit = { ...activeUnit, currenthp: value };
-    if (updateActiveUnit)
-      await setActive(updateActiveUnit);
+    if (updateActiveUnit) await setActive(updateActiveUnit);
   };
 
   const valuetext = (value, index) => {
-    value = `${value}hp`
-  }
+    value = `${value}hp`;
+  };
 
   return (
     <div className={classes.root}>
