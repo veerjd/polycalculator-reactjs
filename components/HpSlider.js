@@ -11,16 +11,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function valuetext(value) {
-  return `${value}hp`;
-}
-
-export default function HpSlider({ activeUnit, setActive }) {
+export default function HpSlider({ activeUnit, setActive, hp, setHp }) {
   const classes = useStyles();
 
-  const [hp, setHp] = useState(activeUnit.currenthp);
-
   const sliderChange = async (event, value) => {
+    console.log(setHp)
     if (value) setHp(value);
     const updateActiveUnit = { ...activeUnit, currenthp: value };
     if (updateActiveUnit) await setActive(updateActiveUnit);

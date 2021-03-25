@@ -11,7 +11,7 @@ export default function Select({
   activeUnit,
   setActive,
 }) {
-  const unitChange = (event, value) => {
+  const inputChange = (event, value) => {
     const updateActiveUnit = units.filter((unit) => unit.name === value)[0];
     console.log("DROPDOWN, updateActiveUnit:", updateActiveUnit);
     if (updateActiveUnit) setActive(updateActiveUnit);
@@ -29,15 +29,13 @@ export default function Select({
         getOptionLabel={(option) => option.name}
         defaultValue={units[0]}
         getOptionSelected={(option, value) => {
-          return option.name === value.name;
+          return option.name === value.name
         }}
-        onChange={unitChange}
         value={activeUnit}
-        onInputChange={unitChange}
-        inputValue={activeUnit.name}
-        renderInput={(params) => (
-          <TextField {...params} label={placeholder} variant="outlined" />
-        )}
+        onInputChange={inputChange}
+        openOnFocus={true}
+        clearOnEscape={true}
+        renderInput={(params) => <TextField {...params} label={placeholder} variant="outlined" />}
       />
     </div>
   );

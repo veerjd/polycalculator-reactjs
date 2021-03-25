@@ -14,7 +14,8 @@ const useStyles = makeStyles({
 });
 
 export default function Calc({
-  units,
+  attUnits,
+  defUnits,
   activeAttackerState: [activeAttacker, setActiveAttacker],
   activeDefenderState: [activeDefender, setActiveDefender],
 }) {
@@ -36,7 +37,7 @@ export default function Calc({
       <Unit
         id="attacker"
         placeholder="Attacker"
-        units={units}
+        units={attUnits}
         activeUnit={activeAttacker}
         setActive={setActiveAttacker}
       />
@@ -44,7 +45,7 @@ export default function Calc({
       <Unit
         id="defender"
         placeholder="Defender"
-        units={units}
+        units={defUnits}
         activeUnit={activeDefender}
         setActive={setActiveDefender}
       />
