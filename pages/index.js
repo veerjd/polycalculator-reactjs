@@ -12,7 +12,7 @@ export default function Home({ attUnits, defUnits }) {
   return (
     <Layout>
       <Head>
-        <title>Polycalculator</title>
+        <title>Modern | PolyCalculator</title>
       </Head>
       <Calc
         attUnits={attUnits}
@@ -26,16 +26,18 @@ export default function Home({ attUnits, defUnits }) {
 
 export async function getStaticProps() {
   const units = await (await fetch(`${API_URL}/units`)).json();
+  const unitsCanAttack = units.filter(x => x.att > 0)
+
   return {
     props: {
-      attUnits: units.map((unit) => ({
+      attUnits: unitsCanAttack.map((unit) => ({
         ...unit,
         currenthp: unit.maxhp,
         vetNow: false,
         forceRetaliation: null,
         explodingNow: false,
         bonus: 1,
-        img: `./assets/Attackers/${unit.name}.png`
+        img: `./assets/img/Attackers/${unit.name}.png`
       })),
       defUnits: units.map((unit) => ({
         ...unit,
@@ -44,7 +46,7 @@ export async function getStaticProps() {
         forceRetaliation: null,
         explodingNow: false,
         bonus: 1,
-        img: `./assets/Attackers/${unit.name}.png`
+        img: `/assets/img/Defenders/${unit.name}.png`
       })),
     },
   };

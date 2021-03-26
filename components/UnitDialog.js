@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,8 +17,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 500,
-    height: 500,
+    border: '#F2F200',
+  },
+  img: {
+    width: '100%',
+    height: '100%',
   },
 }));
 
@@ -42,8 +46,11 @@ export default function DialogGrid({
       <DialogTitle id="simple-dialog-title">Choose your {id}</DialogTitle>
       <GridList cellHeight={160} className={classes.gridList} cols={4}>
         {units.map((unit) => (
-          <GridListTile button onClick={() => handleListItemClick(unit)} key={unit} cols={unit.cols || 1}>
-            <Avatar src={unit.img} alt={unit.name} />
+          <GridListTile onClick={() => handleListItemClick(unit)} key={unit.name} cols={unit.cols || 1}>
+            <img className={classes.img} src={unit.img} alt={unit.name} />
+            <GridListTileBar
+              title={unit.name}
+            />
           </GridListTile>
         ))}
       </GridList>
