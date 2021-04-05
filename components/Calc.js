@@ -1,7 +1,9 @@
 import Unit from "@/components/Unit";
+import Result from "@/components/Result";
 import { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { API_URL } from "@/constants/polycalc";
 
 const useStyles = makeStyles({
   root: {
@@ -27,9 +29,11 @@ export default function Calc({
     defender: {},
   });
 
-  const handleFight = (event) => {
-    console.log("activeAttacker:", activeAttacker);
-    console.log("activeDefender:", activeDefender);
+  const handleFight = async (event) => {
+    const result1 = await (await fetch(`${API_URL}/calc?a=${activeAttacker.code} ${activeAttacker.currenthp},${activeDefender.code} ${activeDefender.currenthp}`)).json();
+    console.log(result1)
+    result1.attackers = result1.attackers[0]
+    setResult(result1)
   };
 
   return (
@@ -72,6 +76,9 @@ export default function Calc({
       >
         Multi
       </Button>
+      <Result
+        result={result}
+      />
     </div>
   );
 }
