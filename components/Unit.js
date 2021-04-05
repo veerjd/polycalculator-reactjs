@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Button from '@material-ui/core/Button';
-import UnitDrawer from "@/components/UnitDialog";
+import UnitDialog from "@/components/UnitDialog";
 import HpSlider from "@/components/HpSlider";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -29,8 +29,10 @@ export default function Unit({
 
   const handleClose = (value) => {
     setOpen(false);
-    if (value)
-      setActive(value);
+    if (value.name) {
+      setHp(value.maxhp)
+      setActive(value)
+    }
   };
 
   return (
@@ -38,7 +40,7 @@ export default function Unit({
       <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
         {activeUnit.name}
       </Button>
-      <UnitDrawer
+      <UnitDialog
         id={id}
         className={classes.root}
         placeholder={placeholder}

@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
   },
-  margin: {
+  padding: {
     paddingTop: theme.spacing(7),
   },
 }));
@@ -28,8 +28,8 @@ export default function HpSlider({ activeUnit, setActive, hp, setHp }) {
   return (
     <div className={classes.root}>
       <Slider
-        className={classes.margin}
-        aria-labelledby="discrete-slider-always"
+        className={classes.padding}
+        // aria-labelledby="discrete-slider-always"
         value={hp}
         max={activeUnit.maxhp}
         marks={true}
